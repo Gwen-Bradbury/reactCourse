@@ -1,6 +1,6 @@
 import componentsImg from "./assets/components.png";
 import { CORE_CONCEPTS } from "./data";
-import Header from "./components/Header.jsx";
+import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
 // components are generally kept in seperate files to avoid overcrowding a file as the project gets bigger
 // components from other files (like the header) need to be imported to be used

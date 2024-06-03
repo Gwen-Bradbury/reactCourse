@@ -1,0 +1,29 @@
+/* Styles that relate only to certain files should be stored next to thier respective files and imported directly to that file */
+/* these styles won't only relate to the Header.jsx file though. If there is another header (in App.jsx for example) these styles will also apply to that header too */
+header {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+header img {
+  height: 5rem;
+  width: 10rem;
+  object-fit: cover;
+}
+
+header h1 {
+  margin: 0;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 5rem;
+  background: linear-gradient(40deg, #ea00ff, #ea00ff, #03d5ff, #03d5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+header p {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #8964b0;
+  font-family: "Roboto Condensed", sans-serif;
+}

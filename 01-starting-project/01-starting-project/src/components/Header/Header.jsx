@@ -1,4 +1,7 @@
-import reactImg from "../assets/react-core-concepts.png";
+import reactImg from "../../assets/react-core-concepts.png";
+import "./Header.css";
+// Styles that relate only to certain files should be stored next to thier respective files and imported directly to that file
+// these styles won't only relate to the Header in this file though. If there is another header (in App.jsx for example) these styles will also apply to that header too
 
 // this code will dynamically change the first word of the <p></p> in the header
 // to be chosen randomly from the reactDescriptions array
