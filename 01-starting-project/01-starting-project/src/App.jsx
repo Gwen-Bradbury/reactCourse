@@ -6,14 +6,14 @@ import { CORE_CONCEPTS } from "./data";
 // to be chosen randomly from the reactDescriptions array
 const reactDescriptions = ["Fundamental", "Crucial", "Core"];
 
-function getRandomInt(max) {
+function genRandomInt(max) {
   return Math.floor(Math.random() * (max + 1));
 }
 function Header() {
-  /* first you call reactDescriptions as thats the array of words */
-  /* then instead of passing through an index you call the getRandomInt function which will generate an index and display the word at that index number from the array */
-  /* the (2) is from reactDescriptions. The highest index it has is index 2 */
-  const description = reactDescriptions[getRandomInt(2)];
+  // first you call reactDescriptions as thats the array of words
+  // then instead of passing through an index you call the getRandomInt function which will generate an index and display the word at that index number from the array
+  // the (2) is from reactDescriptions. The highest index it has is index 2
+  const description = reactDescriptions[genRandomInt(2)];
 
   return (
     <header>
@@ -38,10 +38,8 @@ function CoreConcept(props) {
     <li>
       {/* you can access the title, description and image values passed in through (props) by using props.image or props.title where appropriate */}
       {/* whatever word you used for the key that was passed in, in the other function, must match the key being used here to retrieve that value! */}
-      <img>
-        {/* when using destructuring you can just use image title and decription rather than props.image or props.title */}
-        src={props.image} alt={props.title}
-      </img>
+      {/* when using destructuring you can just use image title and decription rather than props.image or props.title */}
+      <img src={props.image} alt={props.title} />
       <h3>{props.title}</h3>
       <p>{props.description}</p>
     </li>
