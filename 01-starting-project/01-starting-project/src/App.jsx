@@ -47,6 +47,8 @@ function App() {
             {/* this TabButton Component is written like this and the text is outputted to the browser as it's using the props.children built in feature */}
             {/* see the TabButton.jsx file!! */}
             {/* this is called component composition */}
+            {/* you can use props.children and props that have been passed through as attributes (see above) together. 
+            just use props.children and props.title in the return with (props) passed through the function */}
             <TabButton>Components</TabButton>
             <TabButton>JSX</TabButton>
             <TabButton>Props</TabButton>
