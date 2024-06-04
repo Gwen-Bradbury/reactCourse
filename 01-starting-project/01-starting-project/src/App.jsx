@@ -6,6 +6,7 @@ import { CORE_CONCEPTS } from "./data";
 import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
 import TabButton from "./components/TabButton.jsx";
+import { EXAMPLES } from "./data";
 // components are generally kept in seperate files to avoid overcrowding a file as the project gets bigger
 // components from other files (like the header) need to be imported to be used
 // if it's not the default export you will need to clarify which component you're importing from that file
@@ -17,7 +18,9 @@ function App() {
   // you can store the return value in a const (the return will always be an array containing exactly 2 elements!)
   // const stateArray = useState("Please click a button");
   // you can use destructuring to save these two elements returned in two seperate constants
-  const [selectedTopic, setSelectedTopic] = useState("Please click a button");
+  // const [selectedTopic, setSelectedTopic] = useState("Please click a button");
+  const [selectedTopic, setSelectedTopic] = useState("components");
+
   // selectedTopic will initially be "Please click a button"
   // setSelectedTopic will update selectedTopic and tell react to rerender the component the useState is in
   // selectedTopic then becomes the content connected to the button thats clicked - components, jsx, state or props
@@ -87,8 +90,17 @@ function App() {
             {/* the identifier goes between the handleSelect () */}
             {/* the identifier allows us to control how its called and whats going to be passed to it */}
           </menu>
-          {/* this outputs either the initial "Please click a button" or the updated selectedButton from the handleSelect function */}
-          {selectedTopic}
+          <div id="tab-content">
+            {/* this outputs either the initial "Please click a button" or the updated selectedButton from the handleSelect function along with the data from EXAMPLES in data.js */}
+            {/* the EXAMPLES from data.js have an identifier that must match the identifier in the TabButton onSelect inorder for the right data to be passed through */}
+            {/* the square brackets specify the selectedTopic thats been updated from the TabButton and passed through the handleSelect function and matches it to the identifier in the data.js */}
+            {/* this allows us to grab the values from data.js and output it using that values key */}
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>{EXAMPLES[selectedTopic].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
