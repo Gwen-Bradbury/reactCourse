@@ -88,15 +88,38 @@ function App() {
             {/* this is called component composition */}
             {/* you can use props.children and props that have been passed through as attributes (see above) together. 
             just use props.children and props.title in the return with (props) passed through the function */}
-            <TabButton onSelect={() => handleSelect("components")}>
+            <TabButton
+              isSelected={selectedTopic === "components"}
+              onSelect={() => handleSelect("components")}
+            >
+              {/* isSelected is carrying the selectedTopic prop to TabButton.jsx
+               selectedTopic is set by the handleSelect function which takes a selectedButton prop which is equal to 
+               'components', 'jsx', 'props' or 'state' and tells the state which button has been pressed and sets it in selectedTopic. So 
+               selectedTopic === "components" will always equal true when pressing the components button
+                which is what we need to set the dynamic styling. thats why selectedTopic === "components" is being passed into isSelected*/}
               Components
             </TabButton>
             {/* this is wrapping a function within another function */}
             {/* By wrapping the execution of your event handling function with another function, it's that other function that's passed as a value to the event-handling prop. Therefore, your main function (=> handleClick in this example) does NOT get executed too early but instead only when the event occurs. */}
             {/* this allows you to  "configure" the execution of an event-dependent function (e.g., define which arguments get passed to it) */}
-            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
+            <TabButton
+              isSelected={selectedTopic === "jsx"}
+              onSelect={() => handleSelect("jsx")}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === "props"}
+              onSelect={() => handleSelect("props")}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === "state"}
+              onSelect={() => handleSelect("state")}
+            >
+              State
+            </TabButton>
             {/* in order for the content to change dynamically when the TabButtons are changed a listener needs to be added to them - onSelect which passes through the handleSelect function as a prop to TabButton.jsx */}
             {/* for an identifier to be added in the handleSelect function we need to pass an arrow function through as a prop not just the handleSelect function like we did before */}
             {/* before the identifier - <TabButton onSelect={handleSelect}>JSX</TabButton>  */}

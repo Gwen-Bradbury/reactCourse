@@ -16,7 +16,13 @@ export default function TabButton(props) {
       {/* this children prop is set by react. It doesn't take attributes (keys and values passed through like normal props) */}
       {/* this props.children allows you to put content between an opening and closing tag where you're calling this function */}
       {/* the content could be text or jsx structure */}
-      <button onClick={props.onSelect}>{props.children}</button>
+      <button
+        // this is dynamic styling using an imported prop called isSelected thats passed in from app.jsx
+        className={props.isSelected ? "active" : ""}
+        onClick={props.onSelect}
+      >
+        {props.children}
+      </button>
       {/* the onSelect prop that carries the handleSelect funtion from App.jsx is triggered using the onClick function on the button */}
       {/* this is how functions are passed through and triggered in different files */}
     </li>
