@@ -8,9 +8,11 @@ import TabButton from "./components/TabButton.jsx";
 // if it's not the default export you will need to clarify which component you're importing from that file
 
 function App() {
-  // this function is a click function that can be passed into the TabButton in the return as a prop
-  function handleSelect() {
-    console.log("Hello world!");
+  // this function is a click function that is passed into the TabButton in the return as a prop and is triggered by the onClick on the button in TabButton.jsx
+  // it takes in a prop of selectedButton which will be equal to a string of either 'Components', 'JSX', 'Props' or 'State' depending on what button was pressed
+  // this selectedButton is the identifier in the <TabButton /> in the return
+  function handleSelect(selectedButton) {
+    console.log(selectedButton);
   }
   return (
     <div>
@@ -53,11 +55,18 @@ function App() {
             {/* this is called component composition */}
             {/* you can use props.children and props that have been passed through as attributes (see above) together. 
             just use props.children and props.title in the return with (props) passed through the function */}
-            <TabButton onSelect={handleSelect}>Components</TabButton>
-            <TabButton onSelect={handleSelect}>JSX</TabButton>
-            <TabButton onSelect={handleSelect}>Props</TabButton>
-            <TabButton onSelect={handleSelect}>State</TabButton>
+            <TabButton onSelect={() => handleSelect("components")}>
+              Components
+            </TabButton>
+            <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
             {/* in order for the content to change dynamically when the TabButtons are changed a listener needs to be added to them - onSelect which passes through the handleSelect function as a prop to TabButton.jsx */}
+            {/* for an identifier to be added in the handleSelect function we need to pass an arrow function through as a prop not just the handleSelect function like we did before */}
+            {/* before the identifier - <TabButton onSelect={handleSelect}>JSX</TabButton>  */}
+            {/* after the identifier - <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton> */}
+            {/* the identifier goes between the handleSelect () */}
+            {/* the identifier allows us to control how its called and whats going to be passed to it */}
           </menu>
         </section>
       </main>
