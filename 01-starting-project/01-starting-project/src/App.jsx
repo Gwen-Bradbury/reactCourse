@@ -58,6 +58,9 @@ function App() {
             <TabButton onSelect={() => handleSelect("components")}>
               Components
             </TabButton>
+            {/* this is wrapping a function within another function */}
+            {/* By wrapping the execution of your event handling function with another function, it's that other function that's passed as a value to the event-handling prop. Therefore, your main function (=> handleClick in this example) does NOT get executed too early but instead only when the event occurs. */}
+            {/* this allows you to  "configure" the execution of an event-dependent function (e.g., define which arguments get passed to it) */}
             <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
             <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
             <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
