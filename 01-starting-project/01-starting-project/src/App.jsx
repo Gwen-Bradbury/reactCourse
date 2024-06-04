@@ -59,23 +59,32 @@ function App() {
             {/* theyre passed though as an object with title, description and image as the keys and the values as the values */}
             {/* the keys used here must match the keys being called as props in the other function (in this case the CoreConcept function in CoreConcept.jsx) */}
             {/* in order for the function to accept these values you need to pass them through the CoreConcept() function by adding the word 'props' into the () */}
-            <CoreConcept
+            {/* <CoreConcept
               title="Components"
               description="The core UI building block"
               image={componentsImg}
-            />
+            /> */}
             {/* you can also pass props through that are imported from another file like this imported from data.js */}
             {/* dont forget to import ... from ... at the top of the file */}
             {/* the number in the [] is the index of the key value pair (object) you want to access */}
-            <CoreConcept
+            {/* <CoreConcept
               title={CORE_CONCEPTS[1].title}
               description={CORE_CONCEPTS[1].description}
               image={CORE_CONCEPTS[1].image}
-            />
+            /> */}
             {/* the spread operator (...) will pull the key value pairs from the CORE_CONCEPTS file (data.js) with index [2] and add them as key value pairs here */}
             {/* this reduces the amount of code needed but does the same as the above code */}
-            <CoreConcept {...CORE_CONCEPTS[2]} />
-            <CoreConcept {...CORE_CONCEPTS[3]} />
+            {/* <CoreConcept {...CORE_CONCEPTS[2]} />
+            <CoreConcept {...CORE_CONCEPTS[3]} /> */}
+            {/* the above code will break if one of the entries from CORE_CONCEPTS is removed */}
+            {/* a better way of doing this is dynamically like below */}
+            {CORE_CONCEPTS.map((conceptItem) => (
+              // this map changes CORE_CONCEPTS into a jsx array and executes for every item in the array
+              // it will return a component for every value in CORE_CONCEPTS
+              // the key prop is so react can correctly render the list items
+              // the key should be unique to each list item
+              <CoreConcept key={conceptItem.title} {...conceptItem} />
+            ))}
           </ul>
         </section>
         {/* this section id is coming from the index.css file and is for styling */}
