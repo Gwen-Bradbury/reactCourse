@@ -8,6 +8,10 @@ import TabButton from "./components/TabButton.jsx";
 // if it's not the default export you will need to clarify which component you're importing from that file
 
 function App() {
+  // this function is a click function that can be passed into the TabButton in the return as a prop
+  function handleSelect() {
+    console.log("Hello world!");
+  }
   return (
     <div>
       <Header />
@@ -49,10 +53,11 @@ function App() {
             {/* this is called component composition */}
             {/* you can use props.children and props that have been passed through as attributes (see above) together. 
             just use props.children and props.title in the return with (props) passed through the function */}
-            <TabButton>Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>Props</TabButton>
-            <TabButton>State</TabButton>
+            <TabButton onSelect={handleSelect}>Components</TabButton>
+            <TabButton onSelect={handleSelect}>JSX</TabButton>
+            <TabButton onSelect={handleSelect}>Props</TabButton>
+            <TabButton onSelect={handleSelect}>State</TabButton>
+            {/* in order for the content to change dynamically when the TabButtons are changed a listener needs to be added to them - onSelect which passes through the handleSelect function as a prop to TabButton.jsx */}
           </menu>
         </section>
       </main>
