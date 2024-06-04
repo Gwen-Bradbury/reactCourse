@@ -1,3 +1,6 @@
+import { useState } from "react";
+// useState is a react hook
+
 import componentsImg from "./assets/components.png";
 import { CORE_CONCEPTS } from "./data";
 import Header from "./components/Header/Header.jsx";
@@ -8,12 +11,25 @@ import TabButton from "./components/TabButton.jsx";
 // if it's not the default export you will need to clarify which component you're importing from that file
 
 function App() {
+  // useState can only be used inside react components and can't be nested
+  // it triggers rerendering by react
+  // put the default value (the value you want when react is first rendered) between the ()
+  // you can store the return value in a const (the return will always be an array containing exactly 2 elements!)
+  // const stateArray = useState("Please click a button");
+  // you can use destructuring to save these two elements returned in two seperate constants
+  const [selectedTopic, setSelectedTopic] = useState("Please click a button");
+  // selectedTopic will initially be "Please click a button"
+  // setSelectedTopic will update selectedTopic and tell react to rerender the component the useState is in
+  // selectedTopic then becomes the content connected to the button thats clicked - components, jsx, state or props
+
   // this function is a click function that is passed into the TabButton in the return as a prop and is triggered by the onClick on the button in TabButton.jsx
   // it takes in a prop of selectedButton which will be equal to a string of either 'Components', 'JSX', 'Props' or 'State' depending on what button was pressed
   // this selectedButton is the identifier in the <TabButton /> in the return
   function handleSelect(selectedButton) {
-    console.log(selectedButton);
+    // this updates the selectedTopic with the selectedButton identifier and rerenders the component
+    setSelectedTopic(selectedButton);
   }
+  // by default react components execute only once you need to tell react if a component should be executed again
   return (
     <div>
       <Header />
@@ -71,6 +87,8 @@ function App() {
             {/* the identifier goes between the handleSelect () */}
             {/* the identifier allows us to control how its called and whats going to be passed to it */}
           </menu>
+          {/* this outputs either the initial "Please click a button" or the updated selectedButton from the handleSelect function */}
+          {selectedTopic}
         </section>
       </main>
     </div>
