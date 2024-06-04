@@ -15,13 +15,12 @@ function App() {
   // useState can only be used inside react components and can't be nested
   // it triggers rerendering by react
   // put the default value (the value you want when react is first rendered) between the ()
+  // if it errors with the default value between the () you will have to use a turnary to render the conditional content like below in the return and leave it empty
   // you can store the return value in a const (the return will always be an array containing exactly 2 elements!)
-  // const stateArray = useState("Please click a button");
+  // const stateArray = useState();
   // you can use destructuring to save these two elements returned in two seperate constants
-  // const [selectedTopic, setSelectedTopic] = useState("Please click a button");
-  const [selectedTopic, setSelectedTopic] = useState("components");
-
-  // selectedTopic will initially be "Please click a button"
+  const [selectedTopic, setSelectedTopic] = useState();
+  // selectedTopic will initially be ()
   // setSelectedTopic will update selectedTopic and tell react to rerender the component the useState is in
   // selectedTopic then becomes the content connected to the button thats clicked - components, jsx, state or props
 
@@ -33,6 +32,21 @@ function App() {
     setSelectedTopic(selectedButton);
   }
   // by default react components execute only once you need to tell react if a component should be executed again
+
+  // this is a third way to display a piece of text ie please select a topic before the button is clicked is to use an if
+  let tabContent = <p>Please select a topic</p>;
+  if (selectedTopic) {
+    tabContent = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedTopic].code}</code>
+        </pre>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
@@ -90,17 +104,37 @@ function App() {
             {/* the identifier goes between the handleSelect () */}
             {/* the identifier allows us to control how its called and whats going to be passed to it */}
           </menu>
-          <div id="tab-content">
-            {/* this outputs either the initial "Please click a button" or the updated selectedButton from the handleSelect function along with the data from EXAMPLES in data.js */}
-            {/* the EXAMPLES from data.js have an identifier that must match the identifier in the TabButton onSelect inorder for the right data to be passed through */}
-            {/* the square brackets specify the selectedTopic thats been updated from the TabButton and passed through the handleSelect function and matches it to the identifier in the data.js */}
-            {/* this allows us to grab the values from data.js and output it using that values key */}
-            <h3>{EXAMPLES[selectedTopic].title}</h3>
-            <p>{EXAMPLES[selectedTopic].description}</p>
-            <pre>
-              <code>{EXAMPLES[selectedTopic].code}</code>
-            </pre>
-          </div>
+          {/* this outputs either "Please select a topic" if the selectedButton hasn't been clicked yet or the updated selectedButton from the handleSelect function along with the data from EXAMPLES in data.js */}
+          {/* the EXAMPLES from data.js have an identifier that must match the identifier in the TabButton onSelect inorder for the right data to be passed through */}
+          {/* the square brackets specify the selectedTopic thats been updated from the TabButton and passed through the handleSelect function and matches it to the identifier in the data.js */}
+          {/* this allows us to grab the values from data.js and output it using that values key */}
+          {/* if we want to display a piece of text ie please select a topic before the button is clicked you can do it using a turnary (below) */}
+          {/* {!selectedTopic ? (
+            <p>Please select a topic</p>
+          ) : (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>{EXAMPLES[selectedTopic].code}</code>
+              </pre>
+            </div>
+          )} */}
+          {/* above says if theres no selectedTopic show Please select a topic else show the info for it */}
+          {/* another way of displaying a piece of text before the button is clicked is below*/}
+          {/* {!selectedTopic && <p>Please select a topic</p>} */}
+          {/* the && is saying if the condition to the left of it is true output the content to the right */}
+          {/* {selectedTopic && (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>{EXAMPLES[selectedTopic].code}</code>
+              </pre>
+            </div>
+          )} */}
+          {/* this is the third way to output 'Please select a topic' using the if statement above the return and {tabContent} where you want it outputting */}
+          {tabContent}
         </section>
       </main>
     </div>
