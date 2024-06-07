@@ -1,35 +1,34 @@
-import { useState, Fragment } from "react";
+// useState import now belongs in Examples.jsx
+// import { useState, Fragment } from "react";
 
-import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header/Header.jsx";
-import CoreConcept from "./components/CoreConcept.jsx";
-import TabButton from "./components/TabButton.jsx";
-import { EXAMPLES } from "./data.js";
+// these 2 now belong in CoreConcepts.jsx
+// import { CORE_CONCEPTS } from "./data.js";
+// import CoreConcept from "./components/CoreConcept.jsx";
+// these 2 now belong in Examples.jsx
+// import TabButton from "./components/TabButton.jsx";
+// import { EXAMPLES } from "./data.js";
+import CoreConcepts from "./components/CoreConcepts.jsx";
+import Examples from "./components/Examples.jsx";
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState();
-
-  function handleSelect(selectedButton) {
-    // selectedButton => 'components', 'jsx', 'props', 'state'
-    setSelectedTopic(selectedButton);
-    // console.log(selectedTopic);
-  }
-
-  console.log("APP COMPONENT EXECUTING");
-
-  let tabContent = <p>Please select a topic.</p>;
-
-  if (selectedTopic) {
-    tabContent = (
-      <div id="tab-content">
-        <h3>{EXAMPLES[selectedTopic].title}</h3>
-        <p>{EXAMPLES[selectedTopic].description}</p>
-        <pre>
-          <code>{EXAMPLES[selectedTopic].code}</code>
-        </pre>
-      </div>
-    );
-  }
+  // all this now belongs in Examples.jsx
+  // const [selectedTopic, setSelectedTopic] = useState();
+  // function handleSelect(selectedButton) {
+  //   setSelectedTopic(selectedButton);
+  // }
+  // let tabContent = <p>Please select a topic.</p>;
+  // if (selectedTopic) {
+  //   tabContent = (
+  //     <div id="tab-content">
+  //       <h3>{EXAMPLES[selectedTopic].title}</h3>
+  //       <p>{EXAMPLES[selectedTopic].description}</p>
+  //       <pre>
+  //         <code>{EXAMPLES[selectedTopic].code}</code>
+  //       </pre>
+  //     </div>
+  //   );
+  // }
 
   return (
     // JSX elements must have one parent element in the return
@@ -42,15 +41,25 @@ function App() {
     <>
       <Header />
       <main>
-        <section id="core-concepts">
+        {/* this core concepts section should be in its on component */}
+        {/* so we've moved it out into CoreConcepts.jsx */}
+        {/* copy and paste it across and remove it's imports from App.jsx */}
+        {/* don't forget to add the new CoreConcepts import to the top! */}
+        {/* <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
             {CORE_CONCEPTS.map((conceptItem) => (
               <CoreConcept key={conceptItem.title} {...conceptItem} />
             ))}
           </ul>
-        </section>
-        <section id="examples">
+        </section> */}
+        {/* this outputs the new CoreConcepts function from CoreConcepts.jsx */}
+        <CoreConcepts />
+        {/* this examples section should be in it's own component */}
+        {/* so we've moved it out into Examples.jsx */}
+        {/* copy and paste it across and remove it's imports and functions from App.jsx */}
+        {/* don't forget to add the new Examples import to the top! */}
+        {/* <section id="examples">
           <h2>Examples</h2>
           <menu>
             <TabButton
@@ -79,7 +88,9 @@ function App() {
             </TabButton>
           </menu>
           {tabContent}
-        </section>
+        </section> */}
+        {/* this outputs the new Examples function from Examples.jsx */}
+        <Examples />
       </main>
     </>
     // </Fragment>
