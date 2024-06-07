@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TabButton from "./TabButton.jsx";
 import { EXAMPLES } from "../data.js";
+import Section from "./Section.jsx";
 
 export default function Examples() {
   const [selectedTopic, setSelectedTopic] = useState();
@@ -22,12 +23,16 @@ export default function Examples() {
     );
   }
   return (
-    <section id="examples">
-      <h2>Examples</h2>
+    // replacing the html <section></section> tags with our own custom Section function
+    // <section id="examples">
+    // examples comes from the css and needs carrying across to Section.jsx using proxy props (also called forwarded props)
+    <Section title="Examples" id="examples">
+      {/* <h2>Examples</h2> */}
       <menu>
         <TabButton
           isSelected={selectedTopic === "components"}
           onSelect={() => handleSelect("components")}
+          // if youre using forwarded props here you'd change the onSelect to onClick={() => handleSelect("components")}
         >
           Components
         </TabButton>
@@ -51,6 +56,7 @@ export default function Examples() {
         </TabButton>
       </menu>
       {tabContent}
-    </section>
+    </Section>
+    // </section>
   );
 }
