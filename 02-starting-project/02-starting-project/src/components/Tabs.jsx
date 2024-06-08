@@ -1,4 +1,5 @@
-export default function Tabs({ children, buttons, buttonsContainer }) {
+export default function Tabs({ children, buttons, buttonsContainer = "menu" }) {
+  // buttonsContainer = "menu" - this sets the default buttonsContainer to menu so if there's no prop passed in it will set a <menu></menu>
   // We can't just replace <menu></menu> with <buttonsContainer></buttonsContainer> so react will look for a built in buttonsContainer which doesn't exist
   // so we need to store it in a variable with a capital letter as the first letter
   // you could've also just passed the prop buttonsContainer through with a capital B

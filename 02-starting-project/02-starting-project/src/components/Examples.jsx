@@ -35,7 +35,8 @@ export default function Examples() {
         // we want to pass <menu></menu> through this buttonsContainer prop into Tabs.jsx but you can pass <div></div> or even the custom <Section></Section>
         // however if what youre passing in is custom you will need {} with no <> eg {Section}
         // if you pass through a prop with a capital first letter ie ButtonsContainer you won't need to store it as a const to use it
-        buttonsContainer="menu"
+        // if the buttonsContainer is a menu we've set the default to menu in Tabs.jsx so you won't need to pass this prop through
+        // buttonsContainer="menu"
         buttons={
           <>
             <TabButton
