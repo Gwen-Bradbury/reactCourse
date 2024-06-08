@@ -32,6 +32,10 @@ export default function Examples() {
       {/* this is imported from Tabs.jsx and is a wrapper for all the <TabButton/>'s and the tabContent */}
       {/* we can pass through the <TabButton/>'s using the buttons prop in the <Tabs/> */}
       <Tabs
+        // we want to pass <menu></menu> through this buttonsContainer prop into Tabs.jsx but you can pass <div></div> or even the custom <Section></Section>
+        // however if what youre passing in is custom you will need {} with no <> eg {Section}
+        // if you pass through a prop with a capital first letter ie ButtonsContainer you won't need to store it as a const to use it
+        buttonsContainer="menu"
         buttons={
           <>
             <TabButton
