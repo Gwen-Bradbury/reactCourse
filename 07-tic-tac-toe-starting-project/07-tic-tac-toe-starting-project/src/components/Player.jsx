@@ -4,8 +4,12 @@ export default function Player({ name, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
-    setIsEditing(true);
+    // this only sets setIsEditing to true - we want it to flip from true to false
+    // setIsEditing(true);
+    // this will check if isEditing is not true (meaning it's false) change it to true and if it is true change it to false
+    setIsEditing(!isEditing);
   }
+
   // this function is being outputted twice in App.jsx
   // when clicking player 1's edit button the input field appears but player 2's input stays hidden and vice versa
   // this is because whenever you reuse a component react creates a new isolated instance
@@ -17,11 +21,11 @@ export default function Player({ name, symbol }) {
         {!isEditing ? (
           <span className="player-name">{name}</span>
         ) : (
-          <input type="text" required />
+          <input type="text" value={name} required />
         )}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={handleEditClick}>{!isEditing ? "Edit" : "Save"}</button>
     </li>
   );
 }
