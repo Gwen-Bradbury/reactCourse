@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol }) {
+export default function Player({ initialName, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [playerName, setPlayerName] = useState(initialName);
 
   function handleEditClick() {
     // this only sets setIsEditing to true - we want it to flip from true to false
@@ -13,6 +14,12 @@ export default function Player({ name, symbol }) {
     setIsEditing((editing) => !editing);
   }
 
+  function handleChange(event) {
+    // event.target.value gets the value that was entered in the onChange input field
+    // and sets that value in the setPlayerName state which changes the name
+    setPlayerName(event.target.value);
+  }
+
   // this function is being outputted twice in App.jsx
   // when clicking player 1's edit button the input field appears but player 2's input stays hidden and vice versa
   // this is because whenever you reuse a component react creates a new isolated instance
@@ -22,9 +29,17 @@ export default function Player({ name, symbol }) {
     <li>
       <span className="player">
         {!isEditing ? (
-          <span className="player-name">{name}</span>
+          <span className="player-name">{playerName}</span>
         ) : (
-          <input type="text" value={name} required />
+          // this editing of name is called two-way-binding as we're getting a value out of the input with the onChange and feeding a value back in using the value={playerName}
+          <input
+            type="text"
+            value={playerName}
+            // onChange will be triggered by keystroke and will store that trigger value as an event
+            // we can pass this event through to the onChange function using the event keyword (or e)
+            onChange={handleChange}
+            required
+          />
         )}
         <span className="player-symbol">{symbol}</span>
       </span>
