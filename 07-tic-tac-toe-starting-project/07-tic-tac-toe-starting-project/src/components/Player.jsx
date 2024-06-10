@@ -6,8 +6,11 @@ export default function Player({ name, symbol }) {
   function handleEditClick() {
     // this only sets setIsEditing to true - we want it to flip from true to false
     // setIsEditing(true);
-    // this will check if isEditing is not true (meaning it's false) change it to true and if it is true change it to false
-    setIsEditing(!isEditing);
+    // this will check if isEditing is not true (meaning it's false) and schedule to change it to true
+    // setIsEditing(!isEditing);
+    // both of the above are not best practice when changing a state based on its current state
+    // best practice is to pass a function as it will automatically get and guarentee the current states value as an input and change it based off that
+    setIsEditing((editing) => !editing);
   }
 
   // this function is being outputted twice in App.jsx
