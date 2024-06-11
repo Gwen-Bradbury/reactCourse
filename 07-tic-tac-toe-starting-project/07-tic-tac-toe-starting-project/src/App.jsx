@@ -54,7 +54,8 @@ function App() {
         {/* activePlayer also needs to be passed to the gameBoard as thats the symbol of the player thats currently active and needs to be placed on the square that was clicked */}
         <GameBoard
           onSelectSquare={handleSelectSquare}
-          activePlayerSymbol={activePlayer}
+          turns={gameTurns}
+          // activePlayerSymbol={activePlayer} - removed when state was moved from GameBoard.jsx into App.jsx
         />
       </div>
       <Log />
