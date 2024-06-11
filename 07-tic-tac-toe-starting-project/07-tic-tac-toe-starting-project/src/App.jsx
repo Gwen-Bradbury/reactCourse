@@ -2,14 +2,35 @@ import { useState } from "react";
 
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
+import Log from "./components/Log";
 
 function App() {
   // when the state needs changing between two seperate components (in seperate files) it needs to be managed in a place that has access to both of them and can pass the info between them
   const [activePlayer, setActivePlayer] = useState("X");
+  const [gameTurns, setGameTurns] = useState([]);
 
-  function handleSelectSquare() {
+  function handleSelectSquare(rowIndex, colIndex) {
     // this switches our active player
     setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "0" : "X"));
+    // this logs what turns have taken place
+    setGameTurns((prevTurns) => {
+      let currentPlayer = "X";
+      // if the prevTurns array is greater than 0 (as it might be an empty array if noone has had a turn yet in which case it will need to be 'X' still!)
+      // and if in the prevTurns array the first element (which is the last turn) is player 'X'
+      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
+        // then set currentPlayer to '0' - if 'X' has been it will be the first element in the list therefore it's 0's turn
+        currentPlayer = "0";
+      }
+
+      // we want the new value to be inserted in front of the old value so the latest turn is at the top of the list
+      // and we want that new value to be an object
+      const updatedTurns = [
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
+        ...prevTurns,
+      ];
+
+      return updatedTurns;
+    });
   }
 
   return (
@@ -36,6 +57,7 @@ function App() {
           activePlayerSymbol={activePlayer}
         />
       </div>
+      <Log />
     </main>
   );
 }
