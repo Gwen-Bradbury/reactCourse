@@ -6,7 +6,8 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+// these props are passed through from App.jsx
+export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   //   we need to pass the row and col indexes in so we know which null to update
@@ -19,6 +20,7 @@ export default function GameBoard() {
       //  return prevGameBoard;
       // best practice states to create a copy of the board first and update the copy not update the original game board
       // this is called updating in an immutable way
+      // more info at https://academind.com/tutorials/reference-vs-primitive-values
       // react can update the original board even before this scheduled change which is why we create a copy and update that
       // so we don't update the original one in memory
       // this is how we do that
@@ -28,9 +30,14 @@ export default function GameBoard() {
       const updatedGameBoard = [
         ...prevGameBoard.map((innerArray) => [...innerArray]),
       ];
-      updatedGameBoard[rowIndex][colIndex] = "X";
+      // the 'X' is replaced with activePlayerSymbol thats passed through as a prop from App.jsx
+      // updatedGameBoard[rowIndex][colIndex] = "X";
+      // now the X will change to a Y when its the second players turn
+      updatedGameBoard[rowIndex][colIndex] = activePlayerSymbol;
       return updatedGameBoard;
     });
+    // this function is passed through as a prop from App.jsx and is called with the handleSelectedSquare function
+    onSelectSquare();
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol }) {
+// is active is passed through from App.jsx and sets the active css class on the active player
+export default function Player({ initialName, symbol, isActive }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
@@ -26,7 +27,7 @@ export default function Player({ initialName, symbol }) {
   // so player 1 and player 2 will work completely independent of each other even though they're using the same component
   // so if the state changes when <Player /> gets called the first time the second time it gets called it won't care about that - it doesn't even know about it
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {!isEditing ? (
           <span className="player-name">{playerName}</span>
