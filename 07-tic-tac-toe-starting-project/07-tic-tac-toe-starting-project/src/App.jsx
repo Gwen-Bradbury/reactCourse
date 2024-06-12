@@ -58,7 +58,7 @@ function App() {
           // activePlayerSymbol={activePlayer} - removed when state was moved from GameBoard.jsx into App.jsx
         />
       </div>
-      <Log />
+      <Log turns={gameTurns} />
     </main>
   );
 }
