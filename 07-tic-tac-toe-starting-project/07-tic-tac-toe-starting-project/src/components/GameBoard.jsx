@@ -1,28 +1,31 @@
 // import { useState } from "react";
 
-const initialGameBoard = [
-  [null, null, null], // this whole array is a row - the row.map grabs the nulls (which are our columns)
-  [null, null, null],
-  [null, null, null],
-];
+// this code has been moved up to App.jsx as the logic is needed in there
+// const initialGameBoard = [
+//   [null, null, null], // this whole array is a row - the row.map grabs the nulls (which are our columns)
+//   [null, null, null],
+//   [null, null, null],
+// ];
 
 // these props are passed through from App.jsx - activePlayerSymbol was removed as a prop when we moved the state up to App.jsx
-export default function GameBoard({ onSelectSquare, turns }) {
-  // gameBoard is a computed value that has been derived from some state, in this case it's from the gameTurns state in App.jsx
-  let gameBoard = initialGameBoard;
+// turns was removed as a prop when the logic gameBoard was moved up to App.jsx
+export default function GameBoard({ onSelectSquare, board }) {
+  // this code has been moved up to App.jsx as the logic is needed in there
+  //   // gameBoard is a computed value that has been derived from some state, in this case it's from the gameTurns state in App.jsx
+  //   let gameBoard = initialGameBoard;
 
-  // we want to loop over the turns prop
-  // if turns is an empty array this wont do anything
-  for (const turn of turns) {
-    // square and player are passed in with turns as the turns prop is an object with square and player properties
-    // this code is pulling Square and player out of the prop
-    const { square, player } = turn;
-    // this code is pulling the nested row and col from the square thats just been pulled out of the turns prop
-    const { row, col } = square;
-    // now we update the gameBoard row and col with the player symbol
-    gameBoard[row][col] = player;
-    // this is called deriving state from props
-  }
+  //   // we want to loop over the turns prop
+  //   // if turns is an empty array this wont do anything
+  //   for (const turn of turns) {
+  //     // square and player are passed in with turns as the turns prop is an object with square and player properties
+  //     // this code is pulling Square and player out of the prop
+  //     const { square, player } = turn;
+  //     // this code is pulling the nested row and col from the square thats just been pulled out of the turns prop
+  //     const { row, col } = square;
+  //     // now we update the gameBoard row and col with the player symbol
+  //     gameBoard[row][col] = player;
+  //     // this is called deriving state from props
+  //   }
 
   // this information was needed in the Log.jsx component so we moved the state to App.jsx as that has access to both the GameBoard and the Log
   //   const [gameBoard, setGameBoard] = useState(initialGameBoard);
@@ -61,7 +64,8 @@ export default function GameBoard({ onSelectSquare, turns }) {
     <ol id="game-board">
       {/* this map maps over the three inner arrays (the ones with the nulls inside) - our 'rows' */}
       {/* the gameBoard was updated to use the let gameBoard = ... when the state was moved from here to App.jsx */}
-      {gameBoard.map((row, rowIndex) => (
+      {/* {gameBoard.map((row, rowIndex) => () was changed to {board.map((row, rowIndex) => () when the gameBoard logic was moved to App.jsx */}
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {/* this map maps over the null values in each of the 3 row arrays (the nulls) - our 'columns' */}

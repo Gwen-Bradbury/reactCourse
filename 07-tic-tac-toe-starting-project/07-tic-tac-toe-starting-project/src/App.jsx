@@ -6,6 +6,12 @@ import Log from "./components/Log";
 
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 
+const initialGameBoard = [
+  [null, null, null], // this whole array is a row - the row.map grabs the nulls (which are our columns)
+  [null, null, null],
+  [null, null, null],
+];
+
 // we need a list of all the winning combinations
 // below is a part of that to see what it should look like - the rest is in winning-combinations.js and will be imported
 // const WINNING_COMBINATIONS = [
@@ -48,6 +54,23 @@ function App() {
   // this const holds the result of calling the deriveActivePlayer function
   // the gameTurns comes from the state above and is passed into the deriveActivePlayer as a prop
   const activePlayer = deriveActivePlayer(gameTurns);
+
+    let gameBoard = initialGameBoard;
+    for (const turn of gameTurns) {
+      const { square, player } = turn;
+      const { row, col } = square;
+      gameBoard[row][col] = player;
+    }
+
+  // this App component rerenders every time a button is clicked due to handleSelectSquare so we don't need to manage state to see if there's a winner after every turn
+  // we will derive whether we have a winner or not from our gameTurns
+  // first we loop over all our winning combinations whenever the App component rerenders
+  for (const combination of WINNING_COMBINATIONS) {
+    // to check start by getting the symbol in the first square, then second, then third
+    const firstSquareSymbol
+    const secondSquareSymbol
+    const thirdSquareSymbol
+  }
 
   function handleSelectSquare(rowIndex, colIndex) {
     // this switches our active player
@@ -98,7 +121,8 @@ function App() {
         {/* activePlayer also needs to be passed to the gameBoard as thats the symbol of the player thats currently active and needs to be placed on the square that was clicked */}
         <GameBoard
           onSelectSquare={handleSelectSquare}
-          turns={gameTurns}
+          board={gameBoard}
+          // turns={gameTurns} - removed when gameBoard logic was moved from GameBoard.jsx
           // activePlayerSymbol={activePlayer} - removed when state was moved from GameBoard.jsx into App.jsx
         />
       </div>
