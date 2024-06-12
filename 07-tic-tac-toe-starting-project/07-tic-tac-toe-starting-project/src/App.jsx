@@ -3,6 +3,7 @@ import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
+import GameOver from "./components/GameOver";
 
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 
@@ -93,6 +94,9 @@ function App() {
     }
   }
 
+  // its a draw if there's been 9 turns and winner is still undefined
+  const hasDrawn = gameTurns.length === 9 && !winner;
+
   function handleSelectSquare(rowIndex, colIndex) {
     // this switches our active player
     // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "0" : "X"));
@@ -139,8 +143,11 @@ function App() {
             isActive={activePlayer === "0"}
           />
         </ol>
-        {/* if winner is truthy (therefore not undefined as undefined is falsey) then ... */}
-        {winner && <p>You won, {winner}!</p>}
+        {/* if winner is truthy (therefore not undefined as undefined is falsey) */}
+        {/* or if hasDrawn is truthy */}
+        {/* put () round winner || hasDrawn to make sure it's checked first */}
+        {/* then show gameOver screen */}
+        {(winner || hasDrawn) && <GameOver winner={winner} />}
         {/* activePlayer also needs to be passed to the gameBoard as thats the symbol of the player thats currently active and needs to be placed on the square that was clicked */}
         <GameBoard
           onSelectSquare={handleSelectSquare}
