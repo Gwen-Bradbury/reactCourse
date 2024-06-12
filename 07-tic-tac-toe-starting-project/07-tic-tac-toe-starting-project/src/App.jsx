@@ -99,8 +99,12 @@ function App() {
       firstSquareSymbol === thirdSquareSymbol
     ) {
       // we can use this to conditionally render a winner screen
-      // if winner is not undefined show .....
-      winner = firstSquareSymbol;
+      // if winner is not undefined show ....
+      // if we want to show the winners symbol
+      // winner = firstSquareSymbol;
+      // if we want to show the winners name
+      // players is from the state above so it sets the players state to the winning symbol
+      winner = players[firstSquareSymbol];
     }
   }
 
@@ -164,12 +168,14 @@ function App() {
             initialName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
+            onChangeName={handlePlayerNameChange}
           />
           {/* this player is active if activePlayer state is an '0' */}
           <Player
             initialName="Player 2"
             symbol="0"
             isActive={activePlayer === "0"}
+            onChangeName={handlePlayerNameChange}
           />
         </ol>
         {/* if winner is truthy (therefore not undefined as undefined is falsey) */}

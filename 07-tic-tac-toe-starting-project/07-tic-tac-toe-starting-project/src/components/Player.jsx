@@ -1,7 +1,12 @@
 import { useState } from "react";
 
 // is active is passed through from App.jsx and sets the active css class on the active player
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
@@ -13,6 +18,12 @@ export default function Player({ initialName, symbol, isActive }) {
     // both of the above are not best practice when changing a state based on its current state
     // best practice is to pass a function as it will automatically get and guarentee the current states value as an input and change it based off that
     setIsEditing((editing) => !editing);
+    // check to see if isEditing is true if it is call onChangeName
+    if (isEditing) {
+      // onChangeName is passed in from App.jsx
+      // player name is from the state above
+      onChangeName(symbol, playerName);
+    }
   }
 
   function handleChange(event) {
