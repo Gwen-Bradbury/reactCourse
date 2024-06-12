@@ -55,21 +55,42 @@ function App() {
   // the gameTurns comes from the state above and is passed into the deriveActivePlayer as a prop
   const activePlayer = deriveActivePlayer(gameTurns);
 
-    let gameBoard = initialGameBoard;
-    for (const turn of gameTurns) {
-      const { square, player } = turn;
-      const { row, col } = square;
-      gameBoard[row][col] = player;
-    }
+  let gameBoard = initialGameBoard;
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
 
   // this App component rerenders every time a button is clicked due to handleSelectSquare so we don't need to manage state to see if there's a winner after every turn
   // we will derive whether we have a winner or not from our gameTurns
+  let winner; // its undefined to start
   // first we loop over all our winning combinations whenever the App component rerenders
   for (const combination of WINNING_COMBINATIONS) {
-    // to check start by getting the symbol in the first square, then second, then third
-    const firstSquareSymbol
-    const secondSquareSymbol
-    const thirdSquareSymbol
+    // gameBoard is our current initialGameBoard (the one thats being played and updated)
+    // combination[0] is the first line of the combinations from our WINNING_COMBINATIONS data (on the first itteration) and .row is extracting the row from it
+    // we do the same for the col to get the first square
+    // this takes us through the different squares that make up one winning combination and looks at the symbols stored in them
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+    // now we need to check if all the symbols in the squares are equal ie theyre all 0's or all X's
+    // first check it's not null (so check if it's truthy as null is falsey) - if it's null you don't need to check it against the winning combinations
+    // then check the first square value is equal to the second
+    // then check the first square value is equal to the third
+    // if that's the case we have a winner
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      // we can use this to conditionally render a winner screen
+      // if winner is not undefined show .....
+      winner = firstSquareSymbol;
+    }
   }
 
   function handleSelectSquare(rowIndex, colIndex) {
@@ -118,6 +139,8 @@ function App() {
             isActive={activePlayer === "0"}
           />
         </ol>
+        {/* if winner is truthy (therefore not undefined as undefined is falsey) then ... */}
+        {winner && <p>You won, {winner}!</p>}
         {/* activePlayer also needs to be passed to the gameBoard as thats the symbol of the player thats currently active and needs to be placed on the square that was clicked */}
         <GameBoard
           onSelectSquare={handleSelectSquare}
