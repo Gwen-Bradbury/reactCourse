@@ -7,6 +7,12 @@ import GameOver from "./components/GameOver";
 
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 
+const PLAYERS = {
+  X: "Player 1",
+  O: "Player 2",
+};
+
+// should be named INITIAL_GAME_BORAD for styling conventions!!
 const initialGameBoard = [
   [null, null, null], // this whole array is a row - the row.map grabs the nulls (which are our columns)
   [null, null, null],
@@ -37,13 +43,45 @@ const initialGameBoard = [
 
 // helper function
 // its outside of the App function as it doesn't need access to anything inside it
+// helper functions must return something
 function deriveActivePlayer(gameTurns) {
   // this now changes the activePlayer state based on the current gameTurns state
   let currentPlayer = "X";
   if (gameTurns.length > 0 && gameTurns[0].player === "X") {
-    currentPlayer = "0";
+    currentPlayer = "O";
   }
   return currentPlayer;
+}
+
+function deriveGameBoard(gameTurns) {
+  let gameBoard = [...initialGameBoard.map((array) => [...array])];
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
+  return gameBoard;
+}
+
+function deriveWinner(gameBoard, players) {
+  let winner;
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secondSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = players[firstSquareSymbol];
+    }
+  }
+  return winner;
 }
 
 function App() {
@@ -52,10 +90,13 @@ function App() {
   // const [activePlayer, setActivePlayer] = useState("X");
 
   // this should be called whenever we click the save button in the player component
-  const [players, setPlayers] = useState({
-    X: "Player 1",
-    0: "Player 2",
-  });
+  // const [players, setPlayers] = useState({
+  //   X: "Player 1",
+  //   0: "Player 2",
+  // });
+  // we can make the above code leener with
+  const [players, setPlayers] = useState(PLAYERS);
+
   const [gameTurns, setGameTurns] = useState([]);
   // as all the data is derived from this gameTurns state when we reset gameTurns back to an empty array by clicking the rematch button
   // everything else should automatically adjust
@@ -66,47 +107,53 @@ function App() {
 
   // this map makes a deep copy of the initialGameBoard array and all it's nested arrays so we don't update the original array in memory!
   // instead we update the brand new array which is a copy of the original
-  let gameBoard = [...initialGameBoard.map((array) => [...array])];
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
+  // this has been moved out into it's own function further up
+  // let gameBoard = [...initialGameBoard.map((array) => [...array])];
+  // for (const turn of gameTurns) {
+  //   const { square, player } = turn;
+  //   const { row, col } = square;
+  //   gameBoard[row][col] = player;
+  // }
+  // this is how you use the helper function which the above code has been moved into
+  const gameBoard = deriveGameBoard(gameTurns);
 
   // this App component rerenders every time a button is clicked due to handleSelectSquare so we don't need to manage state to see if there's a winner after every turn
   // we will derive whether we have a winner or not from our gameTurns
-  let winner; // its undefined to start
-  // first we loop over all our winning combinations whenever the App component rerenders
-  for (const combination of WINNING_COMBINATIONS) {
-    // gameBoard is our current initialGameBoard (the one thats being played and updated)
-    // combination[0] is the first line of the combinations from our WINNING_COMBINATIONS data (on the first itteration) and .row is extracting the row from it
-    // we do the same for the col to get the first square
-    // this takes us through the different squares that make up one winning combination and looks at the symbols stored in them
-    const firstSquareSymbol =
-      gameBoard[combination[0].row][combination[0].column];
-    const secondSquareSymbol =
-      gameBoard[combination[1].row][combination[1].column];
-    const thirdSquareSymbol =
-      gameBoard[combination[2].row][combination[2].column];
-    // now we need to check if all the symbols in the squares are equal ie theyre all 0's or all X's
-    // first check it's not null (so check if it's truthy as null is falsey) - if it's null you don't need to check it against the winning combinations
-    // then check the first square value is equal to the second
-    // then check the first square value is equal to the third
-    // if that's the case we have a winner
-    if (
-      firstSquareSymbol &&
-      firstSquareSymbol === secondSquareSymbol &&
-      firstSquareSymbol === thirdSquareSymbol
-    ) {
-      // we can use this to conditionally render a winner screen
-      // if winner is not undefined show ....
-      // if we want to show the winners symbol
-      // winner = firstSquareSymbol;
-      // if we want to show the winners name
-      // players is from the state above so it sets the players state to the winning symbol
-      winner = players[firstSquareSymbol];
-    }
-  }
+  // this has been moved out into a function further up to clear up the App component
+  // let winner; // its undefined to start
+  // // first we loop over all our winning combinations whenever the App component rerenders
+  // for (const combination of WINNING_COMBINATIONS) {
+  //   // gameBoard is our current initialGameBoard (the one thats being played and updated)
+  //   // combination[0] is the first line of the combinations from our WINNING_COMBINATIONS data (on the first itteration) and .row is extracting the row from it
+  //   // we do the same for the col to get the first square
+  //   // this takes us through the different squares that make up one winning combination and looks at the symbols stored in them
+  //   const firstSquareSymbol =
+  //     gameBoard[combination[0].row][combination[0].column];
+  //   const secondSquareSymbol =
+  //     gameBoard[combination[1].row][combination[1].column];
+  //   const thirdSquareSymbol =
+  //     gameBoard[combination[2].row][combination[2].column];
+  //   // now we need to check if all the symbols in the squares are equal ie theyre all 0's or all X's
+  //   // first check it's not null (so check if it's truthy as null is falsey) - if it's null you don't need to check it against the winning combinations
+  //   // then check the first square value is equal to the second
+  //   // then check the first square value is equal to the third
+  //   // if that's the case we have a winner
+  //   if (
+  //     firstSquareSymbol &&
+  //     firstSquareSymbol === secondSquareSymbol &&
+  //     firstSquareSymbol === thirdSquareSymbol
+  //   ) {
+  //     // we can use this to conditionally render a winner screen
+  //     // if winner is not undefined show ....
+  //     // if we want to show the winners symbol
+  //     // winner = firstSquareSymbol;
+  //     // if we want to show the winners name
+  //     // players is from the state above so it sets the players state to the winning symbol
+  //     winner = players[firstSquareSymbol];
+  //   }
+  // }
+  // this is how you use the helper function which the above code has been moved into
+  const winner = deriveWinner(gameBoard, players);
 
   // its a draw if there's been 9 turns and winner is still undefined
   const hasDrawn = gameTurns.length === 9 && !winner;
@@ -165,16 +212,20 @@ function App() {
         <ol id="players" className="highlight-player">
           {/* this player is active if activePlayer state is an 'X' */}
           <Player
-            initialName="Player 1"
+            // we made initialName dynamic
+            // initialName="Player 1" becomes -
+            initialName={PLAYERS.X}
             symbol="X"
             isActive={activePlayer === "X"}
             onChangeName={handlePlayerNameChange}
           />
           {/* this player is active if activePlayer state is an '0' */}
           <Player
-            initialName="Player 2"
-            symbol="0"
-            isActive={activePlayer === "0"}
+            // we made initialName dynamic
+            // initialName="Player 2" becomes -
+            initialName={PLAYERS.O}
+            symbol="O"
+            isActive={activePlayer === "O"}
             onChangeName={handlePlayerNameChange}
           />
         </ol>
