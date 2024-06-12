@@ -4,6 +4,30 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 
+import { WINNING_COMBINATIONS } from "./winning-combinations";
+
+// we need a list of all the winning combinations
+// below is a part of that to see what it should look like - the rest is in winning-combinations.js and will be imported
+// const WINNING_COMBINATIONS = [
+//   [
+//     // where the row and column overlap is the square thats chosen - in this case its the top left!
+//     // indexes start at 0!!
+//     {
+//       row: 0,
+//       col: 0,
+//     },
+//     {
+//       row: 0,
+//       col: 1,
+//     },
+//     {
+//       row: 0,
+//       col: 2,
+//     },
+//     // the three above make a winning combination on the top row
+//   ],
+// ];
+
 // helper function
 // its outside of the App function as it doesn't need access to anything inside it
 function deriveActivePlayer(gameTurns) {
