@@ -50,6 +50,12 @@ function App() {
   // when the state needs changing between two seperate components (in seperate files) it needs to be managed in a place that has access to both of them and can pass the info between them
   // the activePlayer and setActivePlayer state has been changed to use derived state
   // const [activePlayer, setActivePlayer] = useState("X");
+
+  // this should be called whenever we click the save button in the player component
+  const [players, setPlayers] = useState({
+    X: "Player 1",
+    0: "Player 2",
+  });
   const [gameTurns, setGameTurns] = useState([]);
   // as all the data is derived from this gameTurns state when we reset gameTurns back to an empty array by clicking the rematch button
   // everything else should automatically adjust
@@ -132,6 +138,20 @@ function App() {
   function handleRestart() {
     // this sets the setGameTurns to an empty array
     setGameTurns([]);
+  }
+
+  function handlePlayerNameChange(symbol, newName) {
+    // we want to change the state based on the old state so only one player name changes - the one we're editing
+    // and we don't want to lose the information from the other persons name
+    setPlayers((prevPlayers) => {
+      // returns new object which will be the new players state which i'll spread my old players state into
+      // this will set the X and 0 to the respective old player names
+      return {
+        ...prevPlayers,
+        // this then overwrites the old name and sets the symbol to the new name
+        [symbol]: newName,
+      };
+    });
   }
 
   return (
