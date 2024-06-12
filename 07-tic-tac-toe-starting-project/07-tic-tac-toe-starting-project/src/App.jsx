@@ -51,12 +51,16 @@ function App() {
   // the activePlayer and setActivePlayer state has been changed to use derived state
   // const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurns, setGameTurns] = useState([]);
+  // as all the data is derived from this gameTurns state when we reset gameTurns back to an empty array by clicking the rematch button
+  // everything else should automatically adjust
 
   // this const holds the result of calling the deriveActivePlayer function
   // the gameTurns comes from the state above and is passed into the deriveActivePlayer as a prop
   const activePlayer = deriveActivePlayer(gameTurns);
 
-  let gameBoard = initialGameBoard;
+  // this map makes a deep copy of the initialGameBoard array and all it's nested arrays so we don't update the original array in memory!
+  // instead we update the brand new array which is a copy of the original
+  let gameBoard = [...initialGameBoard.map((array) => [...array])];
   for (const turn of gameTurns) {
     const { square, player } = turn;
     const { row, col } = square;
@@ -125,6 +129,11 @@ function App() {
     });
   }
 
+  function handleRestart() {
+    // this sets the setGameTurns to an empty array
+    setGameTurns([]);
+  }
+
   return (
     <main>
       {/* the id's game-container and players are for styling*/}
@@ -147,7 +156,9 @@ function App() {
         {/* or if hasDrawn is truthy */}
         {/* put () round winner || hasDrawn to make sure it's checked first */}
         {/* then show gameOver screen */}
-        {(winner || hasDrawn) && <GameOver winner={winner} />}
+        {(winner || hasDrawn) && (
+          <GameOver winner={winner} onRestart={handleRestart} />
+        )}
         {/* activePlayer also needs to be passed to the gameBoard as thats the symbol of the player thats currently active and needs to be placed on the square that was clicked */}
         <GameBoard
           onSelectSquare={handleSelectSquare}
