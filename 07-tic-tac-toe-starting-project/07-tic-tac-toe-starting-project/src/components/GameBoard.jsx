@@ -72,6 +72,7 @@ export default function GameBoard({ onSelectSquare, turns }) {
                   // this is how it looked before we moved the state up
                   //  onClick={() => handleSelectedSquare(rowIndex, colIndex)}
                   onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
                 >
                   {playerSymbol}
                 </button>
