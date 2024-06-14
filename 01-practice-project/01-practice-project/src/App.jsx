@@ -22,7 +22,8 @@ function App() {
         // ...prevUserInput are the current values stored in the inputs - we only want to update one!
         ...prevUserInput,
         // we want to set the identifier to the new updated value. The identifier is either initialInvestment, annualInvestment, expectedReturn, duration
-        [inputIdentifier]: newValue,
+        // the + before newValue forces that value to be a number not a string
+        [inputIdentifier]: +newValue,
       };
     });
   }

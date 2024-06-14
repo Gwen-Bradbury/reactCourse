@@ -6,11 +6,12 @@ export default function UserInput({ onChange, userInput }) {
           <label>Initial Investment</label>
           <input
             type="number"
+            // the value keyword sets what value is going to be displayed in the input - we want it to display the updated userInput
             value={userInput.initialInvestment}
+            // whenever you use event.target.value the return will always be a string even if you set the type='number'
             onChange={(event) =>
               onChange("initailInvestment", event.target.value)
             }
-            // the value keyword sets what value is going to be displayed in the input - we want it to display the updated userInput
             required
           />
         </p>
