@@ -14,6 +14,8 @@ function App() {
     duration: 10,
   });
 
+  const inputIsValid = userInput.duration >= 1;
+
   // the inputIdentifier help us to identify which userInput is being changed (as there's 4 inputs)
   function handleChange(inputIdentifier, newValue) {
     // this needs to be based on the current state as only one field will be changing and we don't want to lose the other data
@@ -32,7 +34,10 @@ function App() {
     <>
       <Header />
       <UserInput onChange={handleChange} userInput={userInput} />
-      <Results userInput={userInput} />
+      {!inputIsValid && (
+        <p className="center">Please enter a duration greater than 0</p>
+      )}
+      {inputIsValid && <Results userInput={userInput} />}
     </>
   );
 }
