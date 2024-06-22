@@ -1,4 +1,27 @@
 import { useState } from "react";
+// styled components is a third party package installed using npm install styled-components
+import { styled } from "styled-components";
+
+// styling a div using the styled-components package
+// you store the css in a variable and then use the variable name inside <> </> around what code you want to style
+// <controlContainer>
+// <p>
+//   <label className={`label ${emailNotValid ? "invalid" : ""}`}>Email</label>
+//   <input
+//     type="email"
+//     style={{ backgroundColor: emailNotValid ? "#fed2d2" : "#d1d5db" }}
+//     onChange={(event) => handleInputChange("email", event.target.value)}
+//   />
+// </p>
+// </controlContainer>
+//  you can move this css into a seperate file if needed
+
+const controlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+`;
 
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -22,7 +45,8 @@ export default function AuthInputs() {
 
   return (
     <div id="auth-inputs">
-      <div className="controls">
+      {/* this div was styled using the third party package styled-components */}
+      <controlContainer>
         <p>
           {/* if an element already has a class and you want to add another conditional class you can use backticks and the ${} syntax to achive it */}
           {/* label is the hardcoded class and is the dynamically, conditionally injected class */}
@@ -48,7 +72,7 @@ export default function AuthInputs() {
             }
           />
         </p>
-      </div>
+      </controlContainer>
       <div className="actions">
         <button type="button" className="text-button">
           Create a new account
